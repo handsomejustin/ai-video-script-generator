@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金点子策划浏览</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="browse-container">
+        <!-- 左侧导航区 -->
+        <div class="browse-sidebar">
+            <h2 class="browse-title">策划方案列表</h2>
+            <div class="item-list">
+                {% for item in items %}
+                <div class="list-item" data-id="{{ item[0] }}">
+                    <div class="item-index">{{ (current_page-1)*20 + loop.index }}</div>
+                    <div class="item-title">{{ item[1] }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- 分页控件 -->
+            <div class="pagination">
+                {% if current_page > 1 %}
+                <a href="{{ url_for('browse', page=current_page-1) }}" class="page-btn">← 上一页</a>
+                {% endif %}
+                
+                <span class="page-info">第 {{ current_page }} / {{ total_pages }} 页</span>
+                
+                {% if current_page < total_pages %}
+                <a href="{{ url_for('browse', page=current_page+1) }}" class="page-btn">下一页 →</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 右侧详情区 -->
+        <div class="detail-panel">
+            <div class="detail-header">
+                <h2>策划方案详情</h2>
+                <div class="detail-meta">点击左侧标题查看详情</div>
+            </div>
+            <div class="detail-content">
+                <div class="detail-section">
+                    <label>📌 标题：</label>
+                    <div class="detail-text" id="detail-title"></div>
+                </div>
+                <div class="detail-section">
+                    <label>⏱️ 精彩前五秒：</label>
+                    <div class="detail-text" id="detail-opening"></div>
+                </div>
+                <div class="detail-section">
+                    <label>🎬 视频脚本：</label>
+                    <div class="detail-text" id="detail-script"></div>
+                </div>
+                <div class="detail-section">
+                    <label>🎥 导演方式：</label>
+                    <div class="detail-text" id="detail-direction"></div>
+                </div>
+                <div class="detail-section">
+                    <label>🎭 演员台词：</label>
+                    <div class="detail-text" id="detail-dialogue"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='browse.js') }}"></script>
+</body>
+</html>

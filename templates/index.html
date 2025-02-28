@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能短视频策划系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">📽️ 智能短视频策划系统</h1>
+        <a href="/browse" class="browse-link">查看历史策划方案 →</a>
+        <div class="input-group">
+            <label>💡 金点子内容：</label>
+            <textarea id="idea" placeholder="示例：如何理解财务指标？">如何理解财务指标</textarea>
+        </div>
+        
+        <button class="generate-btn" onclick="generateScript()">🚀 生成策划方案</button>
+        
+        <div class="result-card">
+            <div class="raw-response">
+                <label>📄 AI原始响应：</label>
+                <textarea id="raw-response" readonly></textarea>
+            </div>
+            
+            <div class="field-group">
+                <div class="field-item">
+                    <label>📌 标题：</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="title" readonly>  
+                        <button class="extract-btn" onclick="extractField('title')">
+                            <span class="btn-text">提取</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="field-item">
+                    <label>⏱️ 精彩前五秒：</label>
+                    <div class="input-wrapper">
+                        <textarea id="opening" readonly></textarea>  
+                        <button class="extract-btn" onclick="extractField('opening')">
+                            <span class="btn-text">提取</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="field-item">
+                    <label>🎬 脚本：</label>
+                    <div class="input-wrapper">
+                        <textarea id="script" readonly></textarea>  
+                        <button class="extract-btn" onclick="extractField('script')">
+                            <span class="btn-text">提取</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="field-item">
+                    <label>🎥 导演方式：</label>
+                    <div class="input-wrapper">
+                        <textarea id="direction" readonly></textarea>  
+                        <button class="extract-btn" onclick="extractField('direction')">
+                            <span class="btn-text">提取</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="field-item">
+                    <label>🎭 演员台词：</label>
+                    <div class="input-wrapper">
+                        <textarea id="dialogue" readonly></textarea>  
+                        <button class="extract-btn" onclick="extractField('dialogue')">
+                            <span class="btn-text">提取</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="save-btn" onclick="saveData()">💾 保存到数据库</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

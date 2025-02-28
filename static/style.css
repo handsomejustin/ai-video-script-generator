@@ -1,0 +1,398 @@
+:root {
+    --primary-color: #1a1a1a;
+    --secondary-color: #2a2a2a;
+    --accent-color: #00b4d8;
+    --success-color: #00cc88;
+    --background: #f8f9ff;
+    --text-light: #ffffff;
+    --font-stack: 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+}
+
+body {
+    font-family: var(--font-stack);
+    background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
+    margin: 0;
+    padding: 4rem;
+    line-height: 1.6;
+    color: var(--primary-color);
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(20px);
+}
+
+.header {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 0 0 4rem;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    position: relative;
+}
+
+.header::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: var(--accent-color);
+    margin: 2rem auto;
+    border-radius: 2px;
+}
+
+.input-group {
+    margin-bottom: 3rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+textarea, input {
+    width: 100%;
+    padding: 1.2rem;
+    border: 2px solid #e0e3ff;
+    border-radius: 1rem;
+    font-family: var(--font-stack);
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* 不同字段高度设置 */
+#title { min-height: 60px; }          /* 1行 */
+#opening { min-height: 250px; }       /* 5行 */
+#script { min-height: 800px; }        /* 20行 */
+#direction { min-height: 150px; }     /* 5行 */
+#dialogue { min-height: 250px; }      /* 5行 */
+
+textarea:focus, input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.15);
+    background: white;
+}
+
+button {
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--font-stack);
+}
+
+.generate-btn {
+    background: linear-gradient(135deg, var(--success-color) 0%, #00b894 100%);
+    color: var(--text-light);
+    width: 100%;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    box-shadow: 0 1rem 2rem rgba(0, 204, 136, 0.15);
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1.5rem 3rem rgba(0, 204, 136, 0.25);
+}
+
+.result-card {
+    margin-top: 3rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(224, 227, 255, 0.5);
+}
+
+.input-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.extract-btn {
+    position: relative; /* 为加载动画提供定位基准 */
+    overflow: hidden; /* 防止加载动画溢出 */
+    background: linear-gradient(135deg, var(--accent-color) 0%, #0096c7 100%);
+    color: var(--text-light);
+    padding: 0.8rem 1.6rem;
+    height: min-content;
+    box-shadow: 0 0.8rem 1.5rem rgba(0, 180, 216, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left:40px;
+}
+
+/* 加载动画样式 */
+.extract-btn.loading {
+    padding-right: 3.5rem; /* 为加载图标留出空间 */
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.extract-btn.loading::after {
+    opacity: 1;
+}
+
+/* 优化动画效果 */
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* 增加加载时文字淡出效果 */
+.extract-btn .btn-text {
+    transition: opacity 0.3s;
+}
+
+.extract-btn.loading .btn-text {
+    opacity: 0.5;
+}
+
+.extract-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1rem 2rem rgba(0, 180, 216, 0.2);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #6c5ce7 0%, #4b37b0 100%);
+    color: var(--text-light);
+    width: 100%;
+    margin-top: 3rem;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.raw-response textarea {
+    min-height: 200px;
+    background: rgba(240, 242, 255, 0.5);
+}
+
+.loading::after {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 新增响应式设计 */
+@media (max-width: 1200px) {
+    .container {
+        padding: 3rem;
+        margin: 2rem;
+    }
+    
+    .header {
+        font-size: 2.5rem;
+    }
+}
+
+/* 浏览页专用样式 */
+.browse-container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.browse-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.05);
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.browse-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.item-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.list-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0.8rem;
+    background: rgba(240, 242, 255, 0.3);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background: var(--accent-color);
+    transform: translateX(5px);
+}
+
+.list-item:hover .item-title {
+    color: white;
+}
+
+.item-index {
+    width: 24px;
+    height: 24px;
+    background: var(--success-color);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.item-title {
+    font-weight: 500;
+    color: var(--primary-color);
+    line-height: 1.4;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.page-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.6rem;
+    background: rgba(0, 180, 216, 0.1);
+    color: var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.page-info {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* 右侧详情面板 */
+.detail-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.05);
+}
+
+.detail-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.detail-header h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.detail-meta {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.detail-section {
+    margin-bottom: 2rem;
+}
+
+.detail-section label {
+    display: block;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.detail-text {
+    background: rgba(240, 242, 255, 0.3);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.browse-link {
+    display: block;
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--accent-color);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.browse-link:hover {
+    transform: translateX(10px);
+    opacity: 0.8;
+}
+/* 新增标题高亮样式 */
+.detail-section.highlight {
+    background: rgba(0, 180, 216, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--accent-color);
+}
+
+.detail-section.highlight label {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.detail-section.highlight .detail-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
