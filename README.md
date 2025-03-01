@@ -50,7 +50,20 @@
    pip install -r requirements.txt
    ```
 
-3. **数据库配置**
+3. **配置ollama**
+   ```
+   C:\Users\abc>ollama list
+    NAME                              ID              SIZE      MODIFIED
+    openthinker:32b                   b3f4e577e166    19 GB     11 days ago
+    deepseek-r1:32b                   38056bbcbb2d    19 GB     5 weeks ago
+   ```
+确认你已正确安装了ollama，同时已pull了deepseek-r1:32b（显卡需要nVdia RTX4090 24G)
+如尚未安装，可以使用命令:
+  ```
+  C:\Users\abc>ollama pull deepseek-r1:32b
+  ```
+
+4. **数据库配置**
    ```sql
    CREATE DATABASE cehua;
    USE cehua;
@@ -66,7 +79,7 @@
    );
    ```
 
-4. **配置环境变量**  
+5. **配置环境变量**  
    在app.py中修改：
    ```
    # 数据库配置
@@ -80,12 +93,12 @@
     }
    ```
 
-5. **启动服务**
+6. **启动服务**
    ```bash
    python app.py
    ```
 
-6. **访问系统**  
+7. **访问系统**  
    打开浏览器访问：`http://localhost:5000`
 
 ## 🖥️ 使用指南
