@@ -5,15 +5,18 @@ import pymysql
 import requests
 import json
 import re
-
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+# 初始化速率限制
+limiter = Limiter(app=app, key_func=get_remote_address)
 
 # 数据库配置
 db_config = {
     'host': 'localhost',
-    'user': 'justin',
-    'password': 'Samgod80',
+    'user': 'root',
+    'password': 'yourpassword',
     'database': 'cehua',
     'port': 3306,
     'charset': 'utf8mb4'
@@ -65,8 +68,10 @@ def generate_script():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/extract', methods=['POST'])
+@limiter.limit("10 per minute")
 def extract_field():
     try:
+        data = request.json
         field_type = request.json['field_type']
         raw_text = request.json['raw_text']
         
