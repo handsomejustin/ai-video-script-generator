@@ -4,7 +4,7 @@
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-lightgrey)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-一个基于ollama的AI的智能短视频脚本生成系统，集成内容创作、结构化存储与方案浏览功能，助力高效视频内容生产。
+一个基于ollama DeepSeek-R1的AI的智能短视频脚本生成系统，集成内容创作、结构化存储与方案浏览功能，助力高效视频内容生产。
 
 ![系统界面截图](screen2.png)
 ![系统界面截图](screen.png)
@@ -32,7 +32,10 @@
 
 - Python 3.11+
 - MySQL 8.0+
-- Ollama服务（本地运行）
+- Ollama服务+DeepSeek R1 32B+（本地运行，强烈建议使用DeepSeek R1 32B以上版本）
+  or
+- OpenAI兼容方式的API方式调用（可自行在代码中修改）
+  
 
 ### 安装步骤
 
