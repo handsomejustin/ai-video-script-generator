@@ -21,56 +21,42 @@
             <div class="raw-response">
                 <label>📄 AI原始响应：</label>
                 <textarea id="raw-response" readonly></textarea>
+                <button class="extract-btn" onclick="autoExtractAll()">一键提取全部内容</button>
             </div>
             
             <div class="field-group">
                 <div class="field-item">
                     <label>📌 标题：</label>
                     <div class="input-wrapper">
-                        <input type="text" id="title" readonly>  
-                        <button class="extract-btn" onclick="extractField('title')">
-                            <span class="btn-text">提取</span>
-                        </button>
+                        <input type="text" id="title" readonly>
                     </div>
                 </div>
                 
                 <div class="field-item">
                     <label>⏱️ 精彩前五秒：</label>
                     <div class="input-wrapper">
-                        <textarea id="opening" readonly></textarea>  
-                        <button class="extract-btn" onclick="extractField('opening')">
-                            <span class="btn-text">提取</span>
-                        </button>
+                        <textarea id="opening" readonly></textarea>
                     </div>
                 </div>
                 
                 <div class="field-item">
                     <label>🎬 脚本：</label>
                     <div class="input-wrapper">
-                        <textarea id="script" readonly></textarea>  
-                        <button class="extract-btn" onclick="extractField('script')">
-                            <span class="btn-text">提取</span>
-                        </button>
+                        <textarea id="script" readonly></textarea>
                     </div>
                 </div>
                 
                 <div class="field-item">
                     <label>🎥 导演方式：</label>
                     <div class="input-wrapper">
-                        <textarea id="direction" readonly></textarea>  
-                        <button class="extract-btn" onclick="extractField('direction')">
-                            <span class="btn-text">提取</span>
-                        </button>
+                        <textarea id="direction" readonly></textarea>
                     </div>
                 </div>
                 
                 <div class="field-item">
                     <label>🎭 演员台词：</label>
                     <div class="input-wrapper">
-                        <textarea id="dialogue" readonly></textarea>  
-                        <button class="extract-btn" onclick="extractField('dialogue')">
-                            <span class="btn-text">提取</span>
-                        </button>
+                        <textarea id="dialogue" readonly></textarea>
                     </div>
                 </div>
             </div>
