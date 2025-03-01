@@ -164,3 +164,70 @@ async function saveData() {
         btn.innerHTML = '💾 保存到数据库';
     }
 }
+
+// JavaScript修改（static/script.js）
+const EXTRACTION_ORDER = [
+    { id: 'title', name: '标题' },
+    { id: 'opening', name: '精彩前五秒' },
+    { id: 'script', name: '脚本' },
+    { id: 'direction', name: '导演方式' },
+    { id: 'dialogue', name: '演员台词' }
+];
+
+async function autoExtractAll() {
+    const rawText = document.getElementById('raw-response').value;
+    const extractBtn = document.querySelector('.extract-btn');
+    
+    if (!rawText) {
+        alert('请先生成原始内容');
+        return;
+    }
+
+    try {
+        // 禁用按钮并显示进度
+        extractBtn.disabled = true;
+        extractBtn.innerHTML = '<div class="loader"></div>  正在准备...';
+        
+        // 顺序执行提取
+        for (let i = 0; i < EXTRACTION_ORDER.length; i++) {
+            const { id, name } = EXTRACTION_ORDER[i];
+            const textarea = document.getElementById(id);
+            
+            // 更新进度显示
+            extractBtn.innerHTML = `<div class="loader"></div>  正在提取 ${name} (${i+1}/${EXTRACTION_ORDER.length})`;
+            textarea.placeholder = `正在提取${name}...`;
+            
+            try {
+                const response = await fetch('/extract', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        field_type: id,
+                        raw_text: rawText
+                    })
+                });
+                
+                const data = await response.json();
+                textarea.value = data.content || '内容提取失败';
+                textarea.style.borderColor = data.content ? '#27ae60' : '#e74c3c';
+                
+            } catch (error) {
+                textarea.value = `提取错误: ${error.message}`;
+                textarea.style.borderColor = '#e74c3c';
+            }
+        }
+        
+    } catch (error) {
+        alert('提取流程异常: ' + error.message);
+    } finally {
+        // 恢复按钮状态
+        extractBtn.disabled = false;
+        extractBtn.innerHTML = '一键提取全部内容';
+        // 2秒后重置边框颜色
+        setTimeout(() => {
+            EXTRACTION_ORDER.forEach(({ id }) => {
+                document.getElementById(id).style.borderColor = '#e0e0e0';
+            });
+        }, 2000);
+    }
+}
